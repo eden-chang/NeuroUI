@@ -1,0 +1,197 @@
+# NeuroUI
+
+> React component library with built-in cognitive accessibility.
+
+NeuroUI provides React components that are beautiful by default and automatically adapt to users' sensory preferences (motion sensitivity, information density, focus needs, reading preferences, color vision, input method).
+
+## Installation
+
+npm install @neuroui/core @neuroui/components
+
+## Quick Start
+
+Wrap your app with NeuroProvider. All NeuroUI components will automatically adapt to the user's OS accessibility settings.
+
+import { NeuroProvider } from '@neuroui/core';
+import { Button, Dialog, Input, Card, ToastProvider, Toaster, useToast } from '@neuroui/components';
+
+<NeuroProvider>
+  <ToastProvider>
+    <App />
+    <Toaster />
+  </ToastProvider>
+</NeuroProvider>
+
+## Components (15 total)
+
+### Button
+<Button variant="primary" size="md">Click me</Button>
+Variants: primary, secondary, outline, ghost, danger
+Sizes: sm, md, lg
+Props: variant, size, loading, icon, className, and all HTML button attributes.
+Danger variant uses --neuro-color-error CSS variable for CVD-safe color.
+
+### Toast
+const { toast } = useToast();
+toast({ title: 'Saved', variant: 'success' });
+Variants: info, success, warning, error
+Wrap your app with <ToastProvider> and render <Toaster /> to display toasts.
+Border colors use --neuro-color-* CSS variables for CVD-safe colors.
+
+### Dialog
+<Dialog open={open} onOpenChange={setOpen} title="Confirm">
+  <p>Are you sure?</p>
+  <Dialog.Actions>
+    <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+    <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
+  </Dialog.Actions>
+</Dialog>
+Props: open, onOpenChange, title, description, closable, size, children.
+
+### Input
+<Input label="Email" type="email" hint="We won't share this" />
+Note: label prop is required for accessibility.
+Props: label, hint, error, success, icon, and all HTML input attributes.
+Error/success colors use CSS variables for CVD safety.
+
+### Card
+<Card variant="elevated" interactive>
+  <Card.Header>Title</Card.Header>
+  <Card.Body>Content</Card.Body>
+  <Card.Footer>Footer</Card.Footer>
+</Card>
+Variants: default, outlined, elevated
+Sub-components: Card.Header, Card.Body, Card.Footer
+
+### Select
+<Select label="Country" options={[{ value: 'us', label: 'United States' }]} />
+Props: label, hint, error, options, placeholder, icon.
+Note: label prop is required for accessibility.
+
+### Checkbox
+<Checkbox label="I agree to terms" />
+Props: label, error, indeterminate.
+44px click area includes label. Checkmark icon (never color-only).
+
+### Radio / RadioGroup
+<RadioGroup name="color" label="Favorite color" value={value} onChange={setValue}>
+  <Radio label="Red" value="red" />
+  <Radio label="Blue" value="blue" />
+</RadioGroup>
+Props (RadioGroup): name, value, onChange, label, error, orientation.
+Props (Radio): label, value.
+
+### Tabs
+<Tabs defaultValue="tab1">
+  <TabList><Tab value="tab1">Tab 1</Tab><Tab value="tab2">Tab 2</Tab></TabList>
+  <TabPanel value="tab1">Content 1</TabPanel>
+  <TabPanel value="tab2">Content 2</TabPanel>
+</Tabs>
+Arrow key navigation. Active tab: underline + background (not color alone).
+
+### Accordion
+<Accordion type="single">
+  <AccordionItem value="item1">
+    <AccordionTrigger value="item1">Section 1</AccordionTrigger>
+    <AccordionContent value="item1">Content</AccordionContent>
+  </AccordionItem>
+</Accordion>
+Props: type ('single' | 'multiple'), defaultValue. density:minimal forces single.
+
+### Alert
+<Alert variant="warning" title="Disk space low">You have less than 1GB remaining.</Alert>
+Variants: info, success, warning, error
+Props: variant, title, children, closable, onClose, icon.
+Uses --neuro-color-* for CVD-safe accent colors.
+
+### Badge
+<Badge variant="success">Active</Badge>
+Variants: default, info, success, warning, error
+Semantic variants include default dot icons. CVD-safe via CSS variables.
+
+### Tooltip
+<Tooltip content="More info"><Button>Hover me</Button></Tooltip>
+Props: content, position (top/bottom/left/right), children.
+Triggers on hover + focus (never hover-only). density:minimal disables tooltips.
+
+### Navigation
+<Navigation label="Main" orientation="horizontal">
+  <Navigation.Item href="/" active>Home</Navigation.Item>
+  <Navigation.Item href="/about">About</Navigation.Item>
+</Navigation>
+Active item: background + border (not color alone). Arrow key navigation.
+
+### Table
+<Table striped stickyHeader>
+  <Table.Header><Table.Row><Table.Head sortable>Name</Table.Head></Table.Row></Table.Header>
+  <Table.Body><Table.Row><Table.Cell>John</Table.Cell></Table.Row></Table.Body>
+</Table>
+Sub-components: Table.Header, Table.Body, Table.Row, Table.Head, Table.Cell.
+Table.Head props: sortable, sortDirection, onSort.
+
+## Sensory Profile (11 dimensions)
+
+NeuroProvider auto-detects OS settings (prefers-reduced-motion, prefers-contrast, pointer: coarse, forced-colors). Components adapt automatically. Override with:
+
+<NeuroProvider profile={{ motion: 'none', density: 'minimal', colorVision: 'deuteranopia' }}>
+
+Profile fields:
+- motion: 'none' | 'reduced' | 'full'
+- contrast: 'low' | 'normal' | 'high'
+- density: 'minimal' | 'normal' | 'detailed'
+- notifications: 'silent' | 'visual' | 'audio' | 'all'
+- font: 'default' | 'dyslexia-friendly' | 'monospace'
+- spacing: 'compact' | 'normal' | 'relaxed'
+- focus: 'standard' | 'enhanced'
+- timing: 'patient' | 'normal' | 'quick'
+- flashSafety: boolean (true = suppress all flashing/blinking per WCAG 2.3.1)
+- colorVision: 'typical' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia'
+- inputMethod: 'pointer' | 'keyboard' | 'touch' | 'switch' | 'voice'
+
+## Presets (5)
+
+<NeuroProvider preset="calm">      — no motion, relaxed spacing, patient timing, minimal density, visual notifications, enhanced focus
+<NeuroProvider preset="focus">     — enhanced focus indicators, minimal density, reduced motion
+<NeuroProvider preset="safe">      — flash safety on, reduced motion, enhanced focus
+<NeuroProvider preset="colorSafe"> — deuteranopia palette, high contrast, enhanced focus
+
+## Hooks (8)
+
+const { profile, setProfile, resetProfile } = useNeuro();
+const { motionLevel, isMotionSafe } = useMotionSafety();
+const { density, isDenseLayout } = useCognitiveLoad();
+const { fontFamily, lineHeight, letterSpacing } = useReadability();
+const { isFocusMode, toggleFocusMode } = useFocusMode();
+const { isFlashSafe } = useFlashSafety();
+const { colorVision, needsColorRedundancy } = useColorVision();
+const { inputMethod, needsLargerTargets, needsVisibleLabels } = useInputMethod();
+
+## Tailwind Plugin
+
+npm install -D @neuroui/tailwind
+
+import neuroPlugin from '@neuroui/tailwind';
+// Add to plugins array in tailwind.config
+
+Variants (20 total):
+- Motion: neuro-motion-none, neuro-motion-reduced, neuro-motion-full
+- Density: neuro-minimal, neuro-detailed
+- Spacing: neuro-relaxed, neuro-compact
+- Focus: neuro-focus-enhanced
+- Timing: neuro-patient
+- Contrast: neuro-high-contrast
+- Flash safety: neuro-flash-safe
+- Input method: neuro-touch, neuro-keyboard, neuro-switch, neuro-voice
+- Color vision: neuro-cvd, neuro-protanopia, neuro-deuteranopia, neuro-tritanopia, neuro-achromatopsia
+
+## Key Rules for AI Code Generation
+
+1. Always wrap app root with <NeuroProvider>.
+2. Always provide a label prop for Input, Select, Checkbox, RadioGroup.
+3. Prefer semantic variants (variant="danger" not custom red styling).
+4. Do not add custom motion/animation CSS. Components handle motion based on user preferences.
+5. Use className for additional Tailwind styling.
+6. Wrap with <ToastProvider> and add <Toaster /> when using toasts.
+7. Never use color as the sole indicator. All components use icon + text + border for semantic states.
+8. Use --neuro-color-* CSS variables for semantic colors (not hardcoded hex values).
+9. Use --neuro-min-target-size for touch target sizes.

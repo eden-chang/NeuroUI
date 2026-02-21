@@ -1,0 +1,79 @@
+{
+  "components": [
+    {
+      "name": "button",
+      "files": ["button/button.tsx", "button/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "input",
+      "files": ["input/input.tsx", "input/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "card",
+      "files": ["card/card.tsx", "card/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "dialog",
+      "files": ["dialog/dialog.tsx", "dialog/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "toast",
+      "files": ["toast/toast.tsx", "toast/toast-context.tsx", "toast/toaster.tsx", "toast/use-toast.ts", "toast/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "select",
+      "files": ["select/select.tsx", "select/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "checkbox",
+      "files": ["checkbox/checkbox.tsx", "checkbox/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "radio",
+      "files": ["radio/radio.tsx", "radio/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "tabs",
+      "files": ["tabs/tabs.tsx", "tabs/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "accordion",
+      "files": ["accordion/accordion.tsx", "accordion/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "alert",
+      "files": ["alert/alert.tsx", "alert/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "badge",
+      "files": ["badge/badge.tsx", "badge/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "tooltip",
+      "files": ["tooltip/tooltip.tsx", "tooltip/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "navigation",
+      "files": ["navigation/navigation.tsx", "navigation/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    },
+    {
+      "name": "table",
+      "files": ["table/table.tsx", "table/index.ts"],
+      "dependencies": ["@neuroui/core"]
+    }
+  ]
+}

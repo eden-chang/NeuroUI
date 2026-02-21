@@ -1,0 +1,31 @@
+{
+  "name": "@neuroui/tailwind",
+  "version": "0.5.0",
+  "type": "module",
+  "description": "Tailwind CSS plugin for NeuroUI sensory-adaptive variants",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "tailwindcss": ">=3.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17",
+    "tsup": "^8.5.0",
+    "typescript": "~5.9.3"
+  }
+}
